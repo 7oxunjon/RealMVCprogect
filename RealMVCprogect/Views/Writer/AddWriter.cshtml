@@ -1,0 +1,49 @@
+﻿@model EntityLayer.Concreat.Writer
+@{
+    ViewData["Title"] = "AddWriter";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h1>Nomzodlarni qo`shish</h1>
+@using(Html.BeginForm("AddWriter","Writer", FormMethod.Post))
+{
+   <div class="form-group">
+       @Html.Label("Name")
+       @Html.TextBoxFor(x=>x.WriterName, new {@class = "form-control"})
+       @Html.ValidationMessageFor(x=>x.WriterName)
+       <br /> 
+
+       @Html.Label("Surname")
+       @Html.TextBoxFor(x=>x.WriterSurname,new {@class = "form-control"})
+       @Html.ValidationMessageFor(x=>x.WriterSurname)
+       <br />
+
+       @Html.Label("Image")
+       @Html.TextBoxFor(x=>x.WriterImaged, new {@class = ("form-control")})
+       @Html.ValidationMessageFor(x=>x.WriterImaged)
+       <br />
+
+       @Html.Label("Email")
+       @Html.TextBoxFor(x=>x.WriterEmail, new {@class  = "form-control"})
+       @Html.ValidationMessageFor(x=>x.WriterEmail)
+       <br />
+
+        @Html.Label("Daraja")
+        @Html.TextBoxFor(x=>x.WriterTitle, new {@class  = "form-control"})
+        @Html.ValidationMessageFor(x=>x.WriterTitle)
+        <br />
+
+       @Html.Label("Password")
+       @Html.TextBoxFor(x=>x.WriterPaswword, new {@class = "form-control"})
+       @Html.ValidationMessageFor(x=>x.WriterPaswword)
+       <br />
+
+       @Html.Label("About")
+       @Html.TextAreaFor(x=>x.WriterAbout, new {@class  = "form-control"})
+       @Html.ValidationMessageFor(x=>x.WriterAbout)
+       <br />
+       <button class="btn btn-info">Add</button>
+   </div>
+}
+
+

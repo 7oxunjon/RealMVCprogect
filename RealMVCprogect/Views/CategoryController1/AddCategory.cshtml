@@ -1,0 +1,29 @@
+﻿@model EntityLayer.Concreat.Category 
+@{
+    Layout = null;
+}
+
+<link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+<h2>Kategoriya qo`shish sahifasi</h2>
+<br />
+@using (Html.BeginForm("AddCategory", "CategoryController1", FormMethod.Post))
+{
+        <div class="form-group">
+        @Html.Label("Kategorita nomi")
+        @Html.TextBoxFor(x=>x.CotegoryName)
+        @Html.ValidationMessageFor(x=>x.CotegoryName)
+            <br/> <br/>
+
+        @Html.Label("Tasnif yozing")
+        @Html.TextBoxFor(x=>x.CotegoryDescription)
+        @Html.ValidationMessageFor(x=>x.CotegoryDescription)
+            <br/> <br/>
+
+        @Html.Label("Status")
+        @Html.TextBoxFor(x=>x.CotegoryStatus)
+        @Html.ValidationMessageFor(x=>x.CotegoryStatus)
+            <br/> <br/>
+            <button>Yarat</button>
+
+        </div>
+}

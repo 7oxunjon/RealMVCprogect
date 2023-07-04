@@ -1,0 +1,62 @@
+﻿@using EntityLayer.Concreat
+@model List<About>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h1>Ma`lumotlar</h1>
+<table class="table table-bordered">
+    <tr>
+        <th>Id</th>
+        <th>Man haqimda</th>
+        <th>Faol qilish</th>
+        <th>Passiv qilish</th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@item.AboutId</td>
+            <td>Sarlavha</td>
+            <td><a href="#" class="btn btn-warning">Faol Qilish</a></td>
+            <td><a href="#" class="btn btn-danger">Passiv Qilish</a></td>
+        </tr>
+    }
+
+</table>
+
+
+<button class="btn btn-primary" data-toggle ="modal" data-target ="#Modal">
+    Yangi yaratish
+</button>
+<div class="modal" id="Modal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title"> Biz haqimizda matn yaratish</h2>
+            </div>
+            <form method="post" action="/About/AddAbout/">
+                <div class="modal-body">
+                    <label>Haqimizda 1 matn</label>
+                    <input type="text" name="AboutDetals1" class="form-control" />
+                    <br />
+
+                    <label>Haqimizda 2 matn</label>
+                    <input type="text" name="AboutDetals2" class="form-control" />
+                    <br />
+
+                    <label>Haqimizda 1 rasm</label>
+                    <input type="text" name="AboutImeg1" class="form-control" />
+                    <br />
+
+                    <label>Haqimizda 2 rasm</label>
+                    <input type="text" name="AboutImeg2" class="form-control" />
+                    <br />
+                    <button class="btn btn-info" > Yarat </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<br />
+

@@ -1,0 +1,30 @@
+﻿@model EntityLayer.Concreat.Heading
+@{
+    ViewData["Title"] = "AddHeading";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h1>Yangi Sahifa Yaratih</h1>
+@using (Html.BeginForm("AddHeading", "Heading", FormMethod.Post))
+{
+       <div class="form-group"> 
+        @Html.Label("Sahifa nomi") 
+        @Html.TextBoxFor(x=>x.HeadingName, new {@class = "form-control"})
+        @Html.ValidationMessageFor(x=>x.HeadingName)
+           <br /> 
+
+        @Html.Label("Category Id")
+        @Html.DropDownListFor(x=>x.CotegoryId,(List<SelectListItem>)ViewBag.vlc, new {@class = "form-control"})
+        @*@Html.TextBoxFor(x=>x.CotegoryId,new {@class = "form-control"})
+        @Html.ValidationMessageFor(x=>x.CotegoryId)*@
+           <br />
+
+        @Html.Label("Muallif Id")
+        @Html.DropDownListFor(x=>x.WriterId,(List<SelectListItem>)ViewBag.wv, new {@class = "form-control"})
+        @*@Html.TextBoxFor(x=>x.WriterId, new {@class = ("form-control")})
+        @Html.ValidationMessageFor(x=>x.WriterId)*@
+           <br />
+           <button class="btn btn-info">Sarlavha yaratish</button>
+       </div>
+}
+

@@ -1,0 +1,32 @@
+﻿@model EntityLayer.Concreat.Category
+@{
+    ViewData["Title"] = "YaratCategory";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+<br />
+<h1>Kategoriya Yangilash sahifasi</h1>
+
+@using (Html.BeginForm("YaratCategory", "AdminCategoryController1", FormMethod.Post))
+{
+    <div class="form-group">
+
+        @Html.Label("Category Id")
+        @Html.TextBoxFor(x=>x.CotegoryId, new{ @class = "form-control"})
+        <br />
+
+        @Html.Label("Category Name")
+        @Html.TextBoxFor(x=>x.CotegoryName, new{ @class = "form-control"})
+        <br />
+
+        @Html.Label("Description")
+        @Html.TextAreaFor(x=>x.CotegoryDescription, new{ @class = "form-control"})
+        <br />
+
+        @Html.Label("Status")
+        @Html.TextBoxFor(x=>x.CotegoryStatus, new{ @class = "form-control"})
+        <br>
+        <button class="btn btn-success"> Yangilash</button>
+        
+    </div>
+}
+

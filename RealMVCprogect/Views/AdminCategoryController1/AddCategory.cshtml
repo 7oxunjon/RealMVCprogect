@@ -1,0 +1,28 @@
+﻿@model EntityLayer.Concreat.Category
+@{
+    ViewData["Title"] = "AddCategory";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+<link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+<h2>Kategory Qushish Sahifasi</h2>
+<br />
+@using (Html.BeginForm("AddCategory", "AdminCategoryController1",FormMethod.Post))
+{
+    <div class="form-group">
+        @Html.Label("Kategory Name")
+        @Html.TextBoxFor(x=>x.CotegoryName, new{ @class = "form-control"})
+        @Html.ValidationMessageFor(x=>x.CotegoryName)
+        <br/> <br/>
+        @Html.Label("Tasnif Yozing")
+        @Html.TextAreaFor(x=>x.CotegoryDescription,new { @class = "form-control"})
+        @Html.ValidationMessageFor(x=>x.CotegoryDescription)
+        <br /> <br />
+
+        @Html.Label("Status")
+        @Html.TextBoxFor(x=>x.CotegoryStatus)
+        @Html.ValidationMessageFor(x=>x.CotegoryStatus)
+        <br/> <br/>
+        <button class="btn btn-info">Yarat</button>
+    </div>
+}
+
