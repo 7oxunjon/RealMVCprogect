@@ -52,18 +52,7 @@ static void StaartUp(IServiceCollection services, ConfigurationManager manager)
 		});
 	
 		
-	
-		 
-	
-
 	services.AddHttpContextAccessor();
 	services.AddMvc();
 	services.AddControllersWithViews();
-
-
-	
-
-
-	
-   
 } 
