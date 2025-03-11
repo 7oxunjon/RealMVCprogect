@@ -4,49 +4,78 @@
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 
-<h1>Nomodlar Sahifasini Yangilash</h1>
-@using(Html.BeginForm("UpdateWriter","Writer", FormMethod.Post))
-{
-    <div>
 
-        @Html.Label("Id")
-        @Html.TextBoxFor(x=>x.WriterId, new {@class = "form-control"})
-        <br /> 
+<div class="d-flex justify-content-center align-items-center" style="height: 80%;">
+    <br />
+    <div class="col-md-6">
+        @using (Html.BeginForm("UpdateWriter", "Writer", FormMethod.Post))
+        {
+            <div class="card p-4 shadow">
+                <h2 class="text-center">Фойдаланувчиларни тахрирлаш</h2>
 
-        @Html.Label("Name")
-        @Html.TextBoxFor(x=>x.WriterName, new {@class = "form-control"})
-        @Html.ValidationMessageFor(x=>x.WriterName)
-           <br /> 
+                @Html.Label("Id")
+                @Html.TextBoxFor(x => x.WriterId, new { @class = "form-control" })
+                <br />
 
-        @Html.Label("Surname")
-        @Html.TextBoxFor(x=>x.WriterSurname,new {@class = "form-control"})
-        @Html.ValidationMessageFor(x=>x.WriterSurname)
-           <br />
+                @Html.Label("Исми")
+                @Html.TextBoxFor(x => x.WriterName, new { @class = "form-control" })
+                @Html.ValidationMessageFor(x => x.WriterName)
+                <br />
 
-        @Html.Label("Image")
-        @Html.TextBoxFor(x=>x.WriterImaged, new {@class = ("form-control")})
-        @Html.ValidationMessageFor(x=>x.WriterImaged)
-           <br />
+                @Html.Label("Фамилияси")
+                @Html.TextBoxFor(x => x.WriterSurname, new { @class = "form-control" })
+                @Html.ValidationMessageFor(x => x.WriterSurname)
+                <br />
+@* 
+                @Html.Label("Расм")
+                @Html.TextBoxFor(x => x.WriterImaged, new { @class = "form-control" })
+                @Html.ValidationMessageFor(x => x.WriterImaged)
+                <br /> *@
 
-        @Html.Label("Daraja")
-        @Html.TextBoxFor(x=>x.WriterTitle, new {@class  = "form-control"})
-        @Html.ValidationMessageFor(x=>x.WriterTitle)
-        <br />
+                @Html.Label("Расм")
+                <div class="input-group">
+                    @Html.TextBoxFor(x => x.WriterImaged, new { @class = "form-control", @id = "filePath", @readonly = "readonly" })
+                    <div class="input-group-append">
+                        <label class="btn btn-primary">
+                            Tanlash <input type="file" id="fileUpload" style="display: none;">
+                        </label>
+                    </div>
+                </div>
+                @Html.ValidationMessageFor(x => x.WriterImaged)
+                <br />
 
-        @Html.Label("Email")
-        @Html.TextBoxFor(x=>x.WriterEmail, new {@class  = "form-control"})
-        @Html.ValidationMessageFor(x=>x.WriterEmail)
-           <br />
+                @Html.Label("Даражаси")
+                @Html.TextBoxFor(x => x.WriterTitle, new { @class = "form-control" })
+                @Html.ValidationMessageFor(x => x.WriterTitle)
+                <br />
 
-        @Html.Label("Password")
-        @Html.TextBoxFor(x=>x.WriterPaswword, new {@class = "form-control"})
-        @Html.ValidationMessageFor(x=>x.WriterPaswword)
-           <br />
+                @Html.Label("Элеcтрон Почта манзили")
+                @Html.TextBoxFor(x => x.WriterEmail, new { @class = "form-control" })
+                @Html.ValidationMessageFor(x => x.WriterEmail)
+                <br />
 
-        @Html.Label("About")
-        @Html.TextAreaFor(x=>x.WriterAbout, new {@class  = "form-control"})
-        @Html.ValidationMessageFor(x=>x.WriterAbout)
-           <br />
-           <button class="btn btn-success">Yangilash</button>
+                @Html.Label("Парол")
+                @Html.TextBoxFor(x => x.WriterPaswword, new { @class = "form-control" })
+                @Html.ValidationMessageFor(x => x.WriterPaswword)
+                <br />
+
+                @* @Html.Label("About")
+                @Html.TextAreaFor(x => x.WriterAbout, new { @class = "form-control" })
+                @Html.ValidationMessageFor(x => x.WriterAbout)
+                <br /> *@
+
+                <button class="btn btn-success w-100">Yangilash</button>
+            </div>
+        }
     </div>
-}
+</div>
+
+<script>
+    document.getElementById("fileUpload").addEventListener("change", function () {
+        var fileInput = this;
+        var filePathInput = document.getElementById("filePath");
+        if (fileInput.files.length > 0) {
+            filePathInput.value = fileInput.files[0].name;
+        }
+    });
+</script>

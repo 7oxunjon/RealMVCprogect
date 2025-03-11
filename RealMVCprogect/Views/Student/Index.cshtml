@@ -1,0 +1,24 @@
+﻿@using EntityLayer.Concreat
+@model List<Student>
+@{
+    Layout = null;
+}
+
+@section scripts{
+    <script>
+        $(document).ready(function(){
+            $.ajax({
+                url: "@Url.Action("GetStudentList", "Student")",
+                type: "GET",
+                dataType: "json",
+                success function(data){
+                    console.log(data);
+                    $('#student').DataTable({
+                        data:data
+                    })
+                }
+
+            })
+        }
+    </script>
+}

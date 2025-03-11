@@ -14,12 +14,17 @@ namespace RealMVCprogect.Controllers
 		{
 			return View();
 		}
+		[HttpGet]
+		public IActionResult Logo()
+		{
+			return View();
+		}
 
 		public IActionResult Index(Admin admin)
 		{
 			var context = new AppDbContext();
 
-			var exp = context.admins.FirstOrDefault(x=>x.AdminName == admin.AdminName && x.AdminRole == admin.AdminRole);
+			var exp = context.admins.FirstOrDefault(x=>x.AdminName == admin.AdminName && x.AdminPassword == admin.AdminPassword);
 
 			if(exp != null)
 			{
@@ -30,14 +35,13 @@ namespace RealMVCprogect.Controllers
 				};
 
 				ClaimsIdentity claim = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
-				//var properties = new AuthenticationProperties()
-				//{
-				//	AllowRefresh = true,
-				//	IsPersistent = admin.AdminName == admin.AdminName
-				//};
+				var properties = new AuthenticationProperties()
+				{
+					AllowRefresh = true,
+					IsPersistent = admin.AdminName == admin.AdminName
+				};
 
 				HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(claim));
-
 				return RedirectToAction("Index", "AdminCategoryController1");
 			}
 

@@ -32,26 +32,28 @@ app.UseAuthorization();
 app.UseAuthentication();
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+    pattern: "{controller=AdminController1}/{action=Index}/{id?}");
 app.MapRazorPages();
 app.Run();
 
 static void StaartUp(IServiceCollection services, ConfigurationManager manager)
 {
     services.AddControllersWithViews();
-   
-    services.AddControllersWithViews();
+
+        services.AddControllersWithViews();
+
 
 	//services.AddIdentity<IdentityUser, IdentityRole>().AddEntityFrameworkStores<AppDbContext>();
 
 	services.AddAuthentication(
+
 		CookieAuthenticationDefaults.AuthenticationScheme).
 		AddCookie(options =>
 		{
 			options.LogoutPath = "/Login/Index";
 		});
-	
-		
+
+
 	services.AddHttpContextAccessor();
 	services.AddMvc();
 	services.AddControllersWithViews();

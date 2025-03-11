@@ -1,40 +1,73 @@
-﻿
-@{
-    Layout = null;
+﻿@{
+    ViewData["Title"] = "Category";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
-<link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
-<h3>Category</h3>
-<table class="table table-beground">
-    
-    <tr>
-        <th>Id</th>
-        <th>Name</th>
-        <th>Description</th>
-        <th>Status</th>
-        <th>Yangilash</th>
-    </tr>
-    <tr>
-        <td>1</td>
-        <td>Avto turargoh</td>
-        <td>100 ta avto sigaadi</td>
-        <td>true</td>
-        <td> <button class="btn btn-success">Yangilash</button> </td>
-    </tr>
-    <tr>
-        <td>2</td>
-        <td>Burik</td>
-        <td>Brentlar jamlanmasi</td>
-        <td>true</td>
-        <td> <button class="btn btn-success">Yangilash</button> </td>
-    </tr>
-    <tr>
-        <td>3</td>
-        <td>Avto Zapchast</td>
-        <td>xaxlagan turdagi mashinalar uchun</td>
-        <td>true</td>
-         <td> <button class="btn btn-success">Yangilash</button> </td>
-    </tr>
-</table>
-<buttonc class="btn btn-info">Yangi kategoriya</buttonc>
-<button class="btn btn-warning">Kategoriya List</button>
-<button class="btn btn-danger"cl>Taxrirlash</button>
+<style>
+    .common-fieldset {
+        border: 1px solid #ccc;
+        border-radius: 10px; /* Dumaloq burchaklar */
+        padding: 15px;
+        margin-bottom: 20px;
+        background-color: #f9f9f9; /* Yengil fon */
+    }
+
+        .common-fieldset legend {
+            font-weight: bold;
+            padding: 5px 10px;
+            border-radius: 5px; /* Legendni ham dumaloq qilish */
+            background-color: #e3e3e3;
+        }
+
+    .container__form2 {
+        display: flex;
+        justify-content: center; /* Gorizontal markazlash */
+        align-items: center; /* Vertikal markazlash */
+        min-height: 100vh; /* Sahifa balandligini to‘liq egallash */
+    }
+
+    .common-fieldset {
+        width: 80%; /* Kattaroq qilish uchun */
+        max-width: 800px; /* Maksimal kenglik */
+        border: 1px solid #ccc;
+        border-radius: 10px;
+        padding: 15px;
+        background-color: #f9f9f9;
+    }
+
+
+</style>
+
+<div class="container__form2">
+    <fieldset class="common-fieldset" style="margin:0,0,0,0">
+        <legend style="font-weight:bold">Users</legend>
+
+        <div class="table-container">
+            <table class="table table-bordered" id="table_all">
+                <thead>
+                    <tr>
+                        <th>№</th>
+                        <th>Ismi</th>
+                        <th>Email</th>
+                        <th>Parol</th>
+                        <th>To`liq Ismi</th>
+                        <th>Status</th>
+                        
+                    </tr>
+                </thead>
+                <tfoot>
+                    <tr>
+                        <td>1</td>
+                        <td><input class="form-control" name="ProductName" /></td>
+                        <td><input class="form-control" name="ComitetInn" /></td>
+                        <td><input class="form-control" name="ComitetName" /></td>
+                        <td><input class="form-control" name="MedicalSerial" /></td>
+                        <td><input class="form-control" name="MadecalBaseSumma" /></td>
+                       
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+    </fieldset>
+</div>
+
+

@@ -1,0 +1,220 @@
+﻿@{
+    ViewData["Title"] = "Profilni Yangilash";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+
+<div class="container mt-4" style="width:80%">
+    <div class="card shadow-lg p-4">
+        <h3 class="mb-4">Менинг маълумодларим</h3>
+        <div class="text-left">
+            <div class="row">
+                <div class="col-md-2">
+                    <label for="profileImageInput" class="profile-img-label">
+                        <img id="profileImage" src="/css/dist/img/user2-160x160.jpg" class="rounded-circle shadow-lg" width="120" height="120" alt="User Image">
+                    </label>
+                    <input type="file" id="profileImageInput" accept="image/*" class="d-none">
+                </div>
+                <div class="col-md-4 d-flex align-items-center">
+                    <p class="text-muted mt-0">Расмни юклаш учун босинг</p>
+                </div>
+                <div class="col-md-6">
+
+                </div>
+            </div>
+            <h3>Админ</h3>
+            
+           
+        </div>
+
+        <form id="profileForm" enctype="multipart/form-data" style="width: 60%; margin: 0 auto;">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label>Админ исми</label>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <input type="text" id="UserName" name="UserName" class="form-control" placeholder="Royan">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label>Email <span class="text-danger">*</span></label>
+                    </div>
+                </div>
+                <div class="col-md-6"> 
+                    <div class="form-group">
+                        <input type="email" id="UserEmail" name="UserEmail" class="form-control" placeholder="ryan@example.com">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label>Пароль</label>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <input type="password" id="EmailPassword" name="EmailPassword" class="form-control" placeholder="*********">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label>Телефон рақам<span class="text-danger">*</span></label>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <input type="text" id="UserPhone" name="UserPhone" class="form-control" placeholder="">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label>Лавозими</label>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <input type="text" id="UserPosition" name="UserPosition" class="form-control" value="Administrator" disabled>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label>Language</label>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <select id="language" class="form-control">
+                            <option value="English">English</option>
+                            <option value="O'zbek">O'zbek</option>
+                            <option value="Русский">Русский</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Input maydoni -->
+            <div class="row d-flex align-items-center" id="languageInputContainer" style="display: none;">
+                <div class="col-md-6">
+                    <label class="form-label">Тилни танланг</label>
+                </div>
+                <div class="col-md-6">
+                    <input type="text" id="UserLanguage" name="UserLanguage" class="form-control" readonly>
+                </div>
+            </div>
+
+
+            
+           
+
+            <!-- Save Button -->
+            <button type="button" class="btn btn-primary btn-block mt-3" onclick="updateProfile()">Save</button>
+        </form>
+    </div>
+</div>
+
+<!-- jQuery kutubxonasi -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<!-- jQuery Mask Plugin -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
+
+
+<script>
+
+    document.addEventListener("DOMContentLoaded", function () {
+        const select = document.getElementById("language");
+        const inputContainer = document.getElementById("languageInputContainer");
+        const inputField = document.getElementById("UserLanguage");
+
+        let selectedLanguages = [];
+
+        // Selectdan til tanlaganda ishlaydi
+        select.addEventListener("change", function () {
+            const selectedValue = select.value;
+
+            if (selectedValue) {
+                if (!selectedLanguages.includes(selectedValue)) {
+                    selectedLanguages.push(selectedValue);
+                }
+
+                updateUI();
+            }
+        });
+
+        // Input maydonida bosilganda tahrirlashni yoqish
+        inputField.addEventListener("click", function () {
+            let newValues = prompt("Тилни танланг:", selectedLanguages.join(", "));
+
+            if (newValues !== null) {
+                selectedLanguages = newValues.split(",").map(lang => lang.trim()).filter(lang => lang);
+                updateUI();
+            }
+        });
+
+        function updateUI() {
+            // Input maydoniga tanlangan tillarni qo‘yish
+            inputField.value = selectedLanguages.join(", ");
+            inputContainer.style.display = selectedLanguages.length > 0 ? "block" : "none";
+
+            // Select menyusini tozalash
+            select.innerHTML = `<option value="">Тилни танланг</option>`;
+            const allLanguages = ["English", "O'zbek", "Русский"];
+
+            // O'chirilgan tillarni qaytarish
+            allLanguages.forEach(lang => {
+                if (!selectedLanguages.includes(lang)) {
+                    const option = document.createElement("option");
+                    option.value = lang;
+                    option.textContent = lang;
+                    select.appendChild(option);
+                }
+            });
+
+            // Agar hammasi tanlangan bo'lsa, select menyusini yashirish
+            select.style.display = selectedLanguages.length === allLanguages.length ? "none" : "block";
+        }
+    });
+
+
+
+    $(document).ready(function () {
+        $('#UserPhone').mask('+998 (00) 000 00 00');
+    });
+
+    document.getElementById("profileImageInput").addEventListener("change", function (event) {
+        let reader = new FileReader();
+        reader.onload = function () {
+            document.getElementById("profileImage").src = reader.result;
+        }
+        reader.readAsDataURL(event.target.files[0]);
+    });
+
+    function updateProfile() {
+        alert("Profil yangilandi!");
+    }
+</script>
+
+<style>
+    .profile-img-label {
+        cursor: pointer;
+        display: inline-block;
+    }
+
+    .rounded-circle {
+        border-radius: 50%;
+        border: 3px solid #ddd;
+        object-fit: cover;
+    }
+</style>

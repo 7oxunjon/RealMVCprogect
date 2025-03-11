@@ -9,8 +9,10 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
-  <title>AdminLTE 3 | Dashboard 3</title>
+  <title>1UZ_Admin</title>
   <!-- Font Awesome Icons -->
+
+    <link rel="icon" type="image/png" href="/css/imageFile/bepronorma.jpg">
   <link rel="stylesheet" href="/css/plugins/fontawesome-free/css/all.min.css">
   <!-- IonIcons -->
   <link rel="stylesheet" href="http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
@@ -19,16 +21,7 @@
   <!-- Google Font: Source Sans Pro -->
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
 </head>
-<!--
-BODY TAG OPTIONS:
-=================
-Apply one or more of the following classes to to the body tag
-to get the desired effect
-|---------------------------------------------------------|
-|LAYOUT OPTIONS | sidebar-collapse                        |
-|               | sidebar-mini                            |
-|---------------------------------------------------------|
--->
+
 <body class="hold-transition sidebar-mini">
 <div class="wrapper">
   <!-- Navbar -->
@@ -37,19 +30,22 @@ to get the desired effect
   <!-- Main Sidebar Container -->
   <aside class="main-sidebar sidebar-dark-primary elevation-4"> 
     <!-- Brand Logo -->
-    <a href="index3.html" class="brand-link">
+   @*  <a href="index3.html" class="brand-link">
       <img src="/css/dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
            style="opacity: .8">
       <span class="brand-text font-weight-light">AdminLTE 3</span>
-    </a> 
+    </a>  *@
 
     <!-- Sidebar -->
     <div class="sidebar">
       <!-- Sidebar user panel (optional) -->
       <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-        <div class="image">
-          <img src="/css/dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
-        </div>
+                    <div class="image">
+                        <label for="adminImage">
+                            <img src="/css/dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image" id="Imagess" style="cursor: pointer;">
+                        </label>
+                        <input type="file" id="adminImage" style="display: none;">
+                    </div>
         <div class="info">
           <a href="#" class="d-block">Muhammad Ali</a>
         </div>
@@ -64,11 +60,19 @@ to get the desired effect
             <a href="/AdminCategoryController1/Index/" class="nav-link">
               <i class="nav-icon fas fa-tachometer-alt"></i>
               <p>
-                  Kategory
-                   
+                   Котегория
               </p>
             </a>
           </li>
+              <li class="nav-item has-treeview">
+                 <a href="/AdminController1/Index/" class="nav-link">
+                   <i class="nav-icon fas fa-user"></i>
+                     <p>
+                       Профил
+
+                    </p>
+                 </a>
+              </li>
           <li class="nav-item">
             <a href="/Heading/Index/" class="nav-link">
               <i class="nav-icon fas fa-th"></i>
@@ -139,10 +143,10 @@ to get the desired effect
             </a>
           </li>
           <li class="nav-item">
-            <a href="pages/calendar.html" class="nav-link">
+            <a href="/Login/Index/" class="nav-link">
               <i class="nav-icon fas fa-calendar-alt"></i>
               <p>
-                 Avtorizatsiya
+                   Авторизация
               </p>
             </a>
           </li>
@@ -228,3 +232,12 @@ to get the desired effect
 </body>
 
 </html>
+<script>
+    document.getElementById("adminImage").addEventListener("change", function (event) {
+        let reader = new FileReader();
+        reader.onload = function () {
+            document.getElementById("Imagess").src = reader.result;
+        }
+        reader.readAsDataURL(event.target.files[0]);
+    });
+</script>

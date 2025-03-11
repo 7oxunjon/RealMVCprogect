@@ -15,11 +15,13 @@ namespace DataAsseccLayer.Concreat
         public DbSet<Message> messages { get; set; }
         public DbSet<ImageFile> images { get; set; }
         public DbSet<Admin> admins { get; set; }
+		public DbSet<Student> students { get; set; }
         
 
         protected override void OnConfiguring(DbContextOptionsBuilder db)
         {
-            db.UseNpgsql("Server = localhost; Port = 5432; User Id = postgres; password = dotnet; Database = realmvsnewww;");
+            db.UseSqlServer("Server=DESKTOP-F58C4D4\\SQLEXPRESS;Database=realmvsnewwww;Integrated Security=True;TrustServerCertificate=True;");
+
         }
         protected override void OnModelCreating(ModelBuilder model)
         {
