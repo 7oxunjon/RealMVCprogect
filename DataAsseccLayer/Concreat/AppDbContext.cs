@@ -1,6 +1,6 @@
 ﻿using EntityLayer.Concreat;
 using Microsoft.EntityFrameworkCore;
-using RealMVCprogect.Models;
+
 namespace DataAsseccLayer.Concreat
 {
 
