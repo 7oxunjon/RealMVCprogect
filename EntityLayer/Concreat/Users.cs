@@ -1,4 +1,10 @@
-﻿namespace RealMVCprogect.Models
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace EntityLayer.Concreat
 {
     public class Users
     {
@@ -10,6 +16,5 @@
         public string Position { get; set; }
         public List<string> Language { get; set; }
         public DateTime CreatedAt { get; set; }
-        public 
     }
 }
