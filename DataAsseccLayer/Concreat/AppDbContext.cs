@@ -1,21 +1,13 @@
 ﻿using EntityLayer.Concreat;
 using Microsoft.EntityFrameworkCore;
 
+
 namespace DataAsseccLayer.Concreat
 {
 
     public class AppDbContext : DbContext
     {
-        //public DbSet<About> abouts { get; set; }
-        //public DbSet<Category> categories { get; set; }
-        //public DbSet<Contact> contacts { get; set; }
-        //public DbSet<Content> contents { get; set; }
-        //public DbSet<Heading> headings { get; set; }
-        //public DbSet<Writer> writers { get; set; }
-        //public DbSet<Message> messages { get; set; }
-        //public DbSet<ImageFile> images { get; set; }
-        //public DbSet<Admin> admins { get; set; }
-        //public DbSet<Student> students { get; set; }
+     
         public DbSet<News> news {get;set;}
         public DbSet<Users> users {get;set;}
         

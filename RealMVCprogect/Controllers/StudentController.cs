@@ -20,19 +20,19 @@ namespace RealMVCprogect.Controllers
 			return View();
 		}
 
-		[HttpGet]
-		public IActionResult GetStudentList()
-		{
-			var st = _context.students.ToList();
-			var student = st.Select(p => new Student
-			{
-				Id = p.Id,
-				FirtName = p.FirtName,
-				LastName = p.LastName,
-				Country = p.Country,
-				Email = p.Email,
-			}).ToList();
-			return Json(student);
-		}
+		//[HttpGet]
+		//public IActionResult GetStudentList()
+		//{
+		//	var st = _context.students.ToList();
+		//	var student = st.Select(p => new Student
+		//	{
+		//		Id = p.Id,
+		//		FirtName = p.FirtName,
+		//		LastName = p.LastName,
+		//		Country = p.Country,
+		//		Email = p.Email,
+		//	}).ToList();
+		//	return Json(student);
+		//}
 	}
 }

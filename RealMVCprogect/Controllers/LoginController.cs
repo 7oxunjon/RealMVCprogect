@@ -20,37 +20,37 @@ namespace RealMVCprogect.Controllers
 			return View();
 		}
 
-		public IActionResult Index(Admin admin)
-		{
-			var context = new AppDbContext();
+		//public IActionResult Index(Admin admin)
+		//{
+		//	var context = new AppDbContext();
 
-			var exp = context.admins.FirstOrDefault(x=>x.AdminName == admin.AdminName && x.AdminPassword == admin.AdminPassword);
+		//	var exp = context.admins.FirstOrDefault(x => x.AdminName == admin.AdminName && x.AdminPassword == admin.AdminPassword);
 
-			if(exp != null)
-			{
-				List<Claim> claims = new List<Claim>()
-				{
-				new Claim(ClaimTypes.Name, admin.AdminName),
-				new Claim(ClaimTypes.UserData, admin.AdminPassword)
-				};
+		//	if (exp != null)
+		//	{
+		//		List<Claim> claims = new List<Claim>()
+		//		{
+		//		new Claim(ClaimTypes.Name, admin.AdminName),
+		//		new Claim(ClaimTypes.UserData, admin.AdminPassword)
+		//		};
 
-				ClaimsIdentity claim = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
-				var properties = new AuthenticationProperties()
-				{
-					AllowRefresh = true,
-					IsPersistent = admin.AdminName == admin.AdminName
-				};
+		//		ClaimsIdentity claim = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+		//		var properties = new AuthenticationProperties()
+		//		{
+		//			AllowRefresh = true,
+		//			IsPersistent = admin.AdminName == admin.AdminName
+		//		};
 
-				HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(claim));
-				return RedirectToAction("Index", "AdminCategoryController1");
-			}
+		//		HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(claim));
+		//		return RedirectToAction("Index", "AdminCategoryController1");
+		//	}
 
-			else
-			{
-			 return RedirectToAction("Index");
-			}
+		//	else
+		//	{
+		//	 return RedirectToAction("Index");
+		//	}
 
-		}
+		//}
 
 	}
 }
