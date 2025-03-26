@@ -29,7 +29,7 @@ namespace DataAsseccLayer.Repostory
 
         public List<T> GetAll()
         {
-                return _object.ToList();
+            return _object.ToList();
         }
 
         public T Get(Expression<Func<T, bool>> filter)

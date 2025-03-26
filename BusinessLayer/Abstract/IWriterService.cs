@@ -13,11 +13,11 @@ namespace BusinessLayer.Abstract
 
         Writer GetById(int id);
         
-        void WriterAddBl(Writer writer);
+            void WriterAddBl(Writer writer);
         
-        void WriterDeleteBl(Writer writer);
+            void WriterDeleteBl(Writer writer);
         
-        void WriterUpdeteBL(Writer writer);
+            void WriterUpdeteBL(Writer writer);
 
     }
 }

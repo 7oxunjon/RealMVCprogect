@@ -11,6 +11,7 @@ namespace RealMVCprogect.Controllers
     public class WriterController : Controller
     {
         WriterMeneger meneger = new WriterMeneger(new EfWriterDl());
+        //WriterMeneger meneger = new WriterMeneger(new EfWriterDl());
         WriterValidation writervalidation = new WriterValidation();
     
         public IActionResult Index()

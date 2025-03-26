@@ -10,11 +10,12 @@ namespace EntityLayer.Concreat
     {
         public int id { get; set; }
         public string Name { get; set; }
-        public string Emile { get; set; }
+        public string Email { get; set; }
         public string PasswordHash { get; set; }
         public string PhoneNumber { get; set; }
         public string Position { get; set; }
-        public List<string> Language { get; set; }
+        public string Language { get; set; }
         public DateTime CreatedAt { get; set; }
+        public List<News> news { get; set; }
     }
 }
