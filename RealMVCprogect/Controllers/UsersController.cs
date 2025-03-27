@@ -22,12 +22,13 @@ namespace RealMVCprogect.Controllers
             return View(gerId);
         }
 
-        //[HttpPost]
+        [HttpPost]
 
-        //public IActionResult UpdateUsers(Users users)
-        //{
-        //    usersManeger.UsersUpdateBl(users);
-        //    return RedirectToAction("Index");
-        //}
+        public IActionResult UpdateUsers(Users users)
+        {
+            users.CreatedAt = DateTime.Now;
+            usersManeger.UsersUpdateBl(users);
+            return RedirectToAction("Index");
+        }
     }
 }

@@ -27,10 +27,17 @@
                 @Html.TextBoxFor(x => x.PhoneNumber, new { @class = "form-control" })
                 @Html.ValidationMessageFor(x => x.PhoneNumber)
                 <br />
-                
+
+                @Html.Label("Тил")
+                @Html.TextAreaFor(x => x.Language, new { @class = "form-control" })
+                @Html.ValidationMessageFor(x => x.Language)
 
                 @Html.Label("Даражаси")
-                @Html.TextBoxFor(x => x.Position, new { @class = "form-control" })
+                @Html.DropDownListFor(x => x.Position, new List<SelectListItem>
+                {
+                new SelectListItem { Text = "Admin", Value = "Admin" },
+                new SelectListItem { Text = "User", Value = "User" }
+                }, new { @class = "form-control" })
                 @Html.ValidationMessageFor(x => x.Position)
                 <br />
 
@@ -42,14 +49,11 @@
                 @Html.Label("Парол")
                 @Html.TextBoxFor(x => x.PasswordHash, new { @class = "form-control" })
                 @Html.ValidationMessageFor(x => x.PasswordHash)
-                @* <br />
-                @Html.Label("Yaratilgan Sana")
-                @Html.TextBoxFor(x => x.CreatedAt, new { @class = "form-control", @readonly = "readonly" }) *@
-                @* @Html.Label("About")
-            @Html.TextAreaFor(x => x.WriterAbout, new { @class = "form-control" })
-            @Html.ValidationMessageFor(x => x.WriterAbout)
-            <br /> *@
-
+                <br />
+                @Html.Label("Яратилган Сана")
+                @Html.TextBoxFor(x => x.CreatedAt, new { @class = "form-control", @readonly = "readonly" })
+                <br />
+               
                 <button class="btn btn-success w-100">Yangilash</button>
             </div>
         }

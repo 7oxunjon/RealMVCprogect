@@ -14,7 +14,7 @@ namespace EntityLayer.Concreat
         public string PasswordHash { get; set; }
         public string PhoneNumber { get; set; }
         public string Position { get; set; }
-        public string Language { get; set; }
+        public string? Language { get; set; }
         public DateTime CreatedAt { get; set; }
         public List<News> news { get; set; }
     }
