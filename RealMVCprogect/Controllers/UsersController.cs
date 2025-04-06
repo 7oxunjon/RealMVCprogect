@@ -15,6 +15,24 @@ namespace RealMVCprogect.Controllers
             var UserValue = usersManeger.GetList();
             return View(UserValue);
         }
+
+
+        [HttpGet]
+
+        public IActionResult AddUser()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult AddUsers(Users users)
+        {
+            users.CreatedAt = DateTime.Now;
+            usersManeger.UsersAddBl(users);
+            return RedirectToAction("Index");
+            return View(users);
+        }
+
         [HttpGet]
         public IActionResult UpdateUsers(int Id)
         {

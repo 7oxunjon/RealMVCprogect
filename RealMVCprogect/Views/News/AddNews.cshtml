@@ -1,0 +1,53 @@
+﻿@model EntityLayer.Concreat.News
+@{
+    ViewData["Title"] = "AddNews";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="card card-solid text-center">
+    <div class="card-body pb-0">
+        <div class="row d-flex align-items-stretch justify-content-center">
+            <div class="col-12 col-sm-8 col-md-6 d-flex align-items-stretch">
+                <div class="card bg-light w-100 shadow-sm">
+                    <div class="card-header text-muted border-bottom-0">
+                        <h4 class="m-0">Янгилик қўшиш</h4>
+                    </div>
+                    <form asp-action="AddNews" asp-controller="News" method="post" enctype="multipart/form-data">
+                        <div class="card-body pt-3 d-flex flex-column justify-content-center align-items-center position-relative" style="height: 250px; border: 3px dashed #ccc;">
+                            <img id="image-preview" src="" alt="Rasm" class="resizable" style="max-width: 100%; max-height: 150px; display: none;">
+                        </div>
+                        <div class="card-footer">
+                            <div class="form-group">
+                                <label for="short-news">Қисқача янгилик</label>
+                                <textarea id="short-news" name="title" id="title" class="form-control" rows="2"></textarea>
+                            </div>
+                            <div class="form-group mt-2">
+                                <label for="detailed-news">To'liq yangilik</label>
+                                <textarea id="detailed-news" name="content" id="content" class="form-control" rows="6"></textarea>
+                            </div>
+                        </div>
+                        <div class="card-footer d-flex justify-content-center align-items-center">
+                            <label class="btn btn-primary m-1" for="image">Расм Танлаш</label>
+                            <input type="file" id="image" name="files" accept="image/*" class="d-none" onchange="previewImage(event)">
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-block mt-3">Сақлаш</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function previewImage(event) {
+        var reader = new FileReader();
+
+        reader.onload = function () {
+            var output = document.getElementById('image-preview');
+            output.src = reader.result;
+            output.style.display = 'block'; // Rasmni ko'rsatish
+        }
+
+        reader.readAsDataURL(event.target.files[0]); // Tanlangan rasmni o'qish
+    }
+</script>

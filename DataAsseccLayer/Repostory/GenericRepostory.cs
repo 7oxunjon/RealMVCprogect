@@ -1,5 +1,6 @@
 ﻿using DataAsseccLayer.Concreat;
 using DataAsseccLayer.Repostory.Interfase;
+using EntityLayer.Concreat;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -7,6 +8,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
+
 
 namespace DataAsseccLayer.Repostory
 {
@@ -53,9 +55,18 @@ namespace DataAsseccLayer.Repostory
 
         public void Update(T p)
         {
-            var updateEntity = dbContext.Entry(p);
-            updateEntity.State = EntityState.Modified;
-            dbContext.SaveChanges();
+            try
+            {
+                var updateEntity = dbContext.Entry(p);
+                updateEntity.State = EntityState.Modified;
+                dbContext.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+
+                Console.WriteLine(ex);
+            }
+            
         }
 
         
