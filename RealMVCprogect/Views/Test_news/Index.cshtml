@@ -16,9 +16,9 @@
                 <div class="col-sm-6">
                     <h1>Янгиликлар Саҳифаси</h1>
                 </div>
-@*                 <div class="col-sm-6 d-flex justify-content-end">
-                    <!-- d-flex va justify-content-end ni qo'lladik -->
-                    <a class="btn btn-sm btn-primary" href="/News/AddNews/">AddNewNews</a>
+                @*                 <div class="col-sm-6 d-flex justify-content-end">
+                <!-- d-flex va justify-content-end ni qo'lladik -->
+                <a class="btn btn-sm btn-primary" href="/News/AddNews/">AddNewNews</a>
                 </div> *@
             </div>
         </div><!-- /.container-fluid -->
@@ -30,19 +30,19 @@
         <div class="card card-solid">
             <div class="card-body pb-0">
                 <div class="row d-flex align-items-stretch">
-                    @foreach (var item in Model.Where(x => x.status == 1))
+                    @foreach (var item in Model.Where(x => x.status == 0))
                     {
                         <div class="col-12 col-sm-6 col-md-4 d-flex align-items-stretch">
                             <div class="card bg-light">
                                 <div class="card-header text-muted border-bottom-0 d-flex">
-                                    <div class="col-md-6"pr-7>
+                                    <div class="col-md-6" pr-7>
                                         <span class="mr-auto">@item.Users.Name</span>
                                     </div>
                                     <div class="col-md-6" pr-7>
                                         <span>@item.PublishDate.ToString("dd MM yyyy")</span>
                                     </div>
-                                   @*  <span class="mr-auto">@item.Users.Name</span>
-                                    <span>@item.PublishDate.ToString("dd MMMM yyyy")</span> *@
+                                    @*  <span class="mr-auto">@item.Users.Name</span>
+                                <span>@item.PublishDate.ToString("dd MMMM yyyy")</span> *@
                                 </div>
 
 

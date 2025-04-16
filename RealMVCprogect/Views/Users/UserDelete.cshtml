@@ -1,0 +1,62 @@
+﻿@model EntityLayer.Concreat.Users
+
+@{
+    ViewData["Title"] = "UpdateUsers";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+
+<div class="d-flex justify-content-center align-items-center" style="height: 80%;">
+    <br />
+    <div class="col-md-6">
+        @using (Html.BeginForm("UserDelete", "Users", FormMethod.Post))
+        {
+            <div class="card p-4 shadow">
+                <h2 class="text-center">Фойдаланувчиларни тахрирлаш</h2>
+
+                @Html.Label("Id")
+                @Html.TextBoxFor(x => x.id, new { @class = "form-control" })
+                <br />
+
+                @Html.Label("Исми")
+                @Html.TextBoxFor(x => x.Name, new { @class = "form-control" })
+                @* @Html.ValidationMessageFor(x => x.Name) *@
+                <br />
+
+                @Html.Label("Телефон рақам")
+                @Html.TextBoxFor(x => x.PhoneNumber, new { @class = "form-control" })
+                @Html.ValidationMessageFor(x => x.PhoneNumber)
+                <br />
+
+                @Html.Label("Тил")
+                @Html.TextAreaFor(x => x.Language, new { @class = "form-control" })
+                @Html.ValidationMessageFor(x => x.Language)
+
+                @Html.Label("Даражаси")
+                @Html.DropDownListFor(x => x.Position, new List<SelectListItem>
+                {
+                new SelectListItem { Text = "Admin", Value = "Admin" },
+                new SelectListItem { Text = "User", Value = "User" }
+                }, new { @class = "form-control" })
+                @Html.ValidationMessageFor(x => x.Position)
+                <br />
+
+                @Html.Label("Элеcтрон Почта манзили")
+                @Html.TextBoxFor(x => x.Email, new { @class = "form-control" })
+                @Html.ValidationMessageFor(x => x.Email)
+                <br />
+
+                @Html.Label("Парол")
+                @Html.TextBoxFor(x => x.PasswordHash, new { @class = "form-control" })
+                @Html.ValidationMessageFor(x => x.PasswordHash)
+                <br />
+                @Html.Label("Яратилган Сана")
+                @Html.TextBoxFor(x => x.CreatedAt, new { @class = "form-control", @readonly = "readonly" })
+                <br />
+
+                <button class="btn btn-success w-100">Delete</button>
+            </div>
+        }
+    </div>
+</div>
+

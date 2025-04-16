@@ -1,5 +1,7 @@
-﻿@{
-    ViewData["Title"] = "Profilni Yangilash";
+﻿@using EntityLayer.Concreat
+@model Users
+@{
+    ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 
@@ -9,22 +11,21 @@
     <div class="card shadow-lg p-4">
         @using (Html.BeginForm("AddUsers", "Admin", FormMethod.Post))
         {
-            <h3 class="mb-4">Менинг маълумодларим</h3>
+            <h3 class="mb-4" style="text-align:center">Менинг маълумодларим</h3>
             <div class="text-left">
                 <div class="row">
-                    <div class="col-md-2">
-                        <label for="profileImageInput" class="profile-img-label">
-                            <img id="profileImage" src="/css/dist/img/user2-160x160.jpg" class="rounded-circle shadow-lg" width="120" height="120" alt="User Image">
-                        </label>
-                        <input type="file" id="profileImageInput" accept="image/*" class="d-none">
+                    <div class="col-md-8 pr-7" style="text-align:left">
+                         <p>@Model.Position</p>
                     </div>
-                    <div class="col-md-4 d-flex align-items-center">
-                        <p class="text-muted mt-0">Расмни юклаш учун босинг</p>
+                    <div class="col-md-2 pr-7" style="text-align:right">
+                         <p>Янгиланган:</p>
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-2 pr-7" style="text-align:right">
+                         <p>@Model.CreatedAt.ToString()</p>
                     </div>
+
                 </div>
-                <h3>Админ</h3>
+                
 
 
             </div>
@@ -38,7 +39,7 @@
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
-                            <input type="text" id="UserName" name="UserName" class="form-control" placeholder="Royan">
+                            <input type="text" id="Name" name="Name" class="form-control" value="@Model.Name" placeholder="Royan">
                         </div>
                     </div>
                 </div>
@@ -50,7 +51,7 @@
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
-                            <input type="email" id="UserEmail" name="UserEmail" class="form-control" placeholder="ryan@example.com">
+                            <input type="email" id="Email" name="Email" class="form-control" value="@Model.Email" placeholder="ryan@example.com">
                         </div>
                     </div>
                 </div>
@@ -60,9 +61,15 @@
                             <label>Пароль</label>
                         </div>
                     </div>
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <input type="password" id="EmailPassword" name="EmailPassword" class="form-control" placeholder="*********">
+                   <div class="col-md-6">
+                        <div class="form-group position-relative">
+                            <input type="password" id="PasswordHash" name="PasswordHash" class="form-control pr-5" value="@Model.PasswordHash" placeholder="*********">
+                            <span style="position: absolute; top: 50%; right: 15px; transform: translateY(-50%); cursor: pointer; z-index: 2;"
+                                  onmousedown="showPassword()"
+                                  onmouseup="hidePassword()"
+                                  onmouseleave="hidePassword()">
+                                👁️
+                            </span>
                         </div>
                     </div>
                 </div>
@@ -74,7 +81,7 @@
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
-                            <input type="text" id="UserPhone" name="UserPhone" class="form-control" placeholder="">
+                            <input type="text" id="PhoneNumber" name="PhoneNumber" class="form-control" value="@Model.PhoneNumber" placeholder="">
                         </div>
                     </div>
                 </div>
@@ -86,7 +93,7 @@
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
-                            <input type="text" id="UserPosition" name="UserPosition" class="form-control" value="Administrator" disabled>
+                            <input type="text" id="Position" name="Position" class="form-control" value="@Model.Position" disabled>
                         </div>
                     </div>
                 </div>
@@ -113,16 +120,12 @@
                         <label class="form-label">Тилни танланг</label>
                     </div>
                     <div class="col-md-6">
-                        <input type="text" id="UserLanguage" name="UserLanguage" class="form-control" readonly>
+                        <input type="text" id="Language" name="Language" value="@Model.Language" class="form-control" readonly>
                     </div>
                 </div>
 
-
-
-
-
                 <!-- Save Button -->
-                <button type="button" class="btn btn-primary btn-block mt-3" onclick="updateProfile()">Save</button>
+                <button type="submit" class="btn btn-primary btn-block mt-3">Save</button>
             </form>
         }
     </div>
@@ -137,10 +140,10 @@
 
 <script>
 
-    document.addEventListener("DOMContentLoaded", function () {
+ @*    document.addEventListener("DOMContentLoaded", function () {
         const select = document.getElementById("language");
         const inputContainer = document.getElementById("languageInputContainer");
-        const inputField = document.getElementById("UserLanguage");
+        const inputField = document.getElementById("Language");
 
         let selectedLanguages = [];
 
@@ -207,7 +210,15 @@
 
     function updateProfile() {
         alert("Profil yangilandi!");
-    }
+    } *@
+
+        function showPassword() {
+        document.getElementById("PasswordHash").type = "text";
+        }
+
+        function hidePassword() {
+            document.getElementById("PasswordHash").type = "password";
+        }
 </script>
 
 <style>

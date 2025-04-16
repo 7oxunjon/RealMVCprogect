@@ -32,8 +32,9 @@
                     {
                         <div class="col-12 col-sm-6 col-md-4 d-flex align-items-stretch">
                             <div class="card bg-light">
-                                <div class="card-header text-muted border-bottom-0 d-flex justify-content-between">
-                                    <span>@item.Position</span>
+                                <div class="card-header text-muted border-bottom-0 d-flex">
+                                    <span class="mr-auto">@item.Position</span>
+                                    <span>@item.CreatedAt.ToString("dd MMMM yyyy")</span>
                                 </div>
                                 <div class="card-body pt-0">
                                     <div class="row">
@@ -50,14 +51,19 @@
                                     </div>
                                 </div>
                                 <div class="card-footer">
-                                    <div class="text-right">
-                                        <a href="/Users/UpdateUsers/@item.id" class="btn btn-sm bg-teal">
-                                            <i class="fas fa-comments"> Mualif Unvonlari</i>
-                                        </a>
-                                        <a href="/Users/UpdateUsers/@item.id" class="btn btn-sm btn-primary">
-                                            <i class="fas fa-user"></i> Profil tahrirlash
-                                        </a>
+                                    <div class="row">
+                                        <div class="col-md-6 pr-7">
+                                            <a href="/Users/UserDelete/@item.id" class="btn btn-sm bg-teal" style="text-align:left">
+                                                <i class=" fas fa-trash">Ўчириш</i>
+                                            </a>
+                                        </div>
+                                        <div class="col-md-6 pr-7">
+                                            <a href="/Users/UpdateUsers/@item.id" class="btn btn-sm btn-primary">
+                                            <i class="fas fa-user"></i>таҳрирлаш
+                                            </a>
+                                        </div>
                                     </div>
+                                   
                                 </div>
                             </div>
                         </div>

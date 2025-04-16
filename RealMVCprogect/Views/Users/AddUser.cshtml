@@ -9,7 +9,7 @@
 
 <div class="container mt-4" style="width:80%">
     <div class="card shadow-lg p-4">
-        <form asp-action="AddUsers" asp-controller="Users" method="post" enctype="multipart/form-data">
+        <form asp-action="AddUsers" asp-controller="Users" method="post" enctype="multipart/form-data" onsubmit="return validateUserForm()">
 
             <h3 class="mb-4">Менинг маълумодларим</h3>
             <div class="row">
@@ -121,79 +121,9 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <!-- jQuery Mask Plugin -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="~/js/users.js"></script>
 
 
-<script>
-
-    document.addEventListener("DOMContentLoaded", function () {
-        const select = document.getElementById("language");
-        const inputContainer = document.getElementById("languageInputContainer");
-        const inputField = document.getElementById("Language");
-
-        let selectedLanguages = [];
-
-        // Selectdan til tanlaganda ishlaydi
-        select.addEventListener("change", function () {
-            const selectedValue = select.value;
-
-            if (selectedValue) {
-                if (!selectedLanguages.includes(selectedValue)) {
-                    selectedLanguages.push(selectedValue);
-                }
-
-                updateUI();
-            }
-        });
-
-        // Input maydonida bosilganda tahrirlashni yoqish
-        inputField.addEventListener("click", function () {
-            let newValues = prompt("Тилни танланг:", selectedLanguages.join(", "));
-
-            if (newValues !== null) {
-                selectedLanguages = newValues.split(",").map(lang => lang.trim()).filter(lang => lang);
-                updateUI();
-            }
-        });
-
-        function updateUI() {
-            // Input maydoniga tanlangan tillarni qo‘yish
-            inputField.value = selectedLanguages.join(", ");
-            inputContainer.style.display = selectedLanguages.length > 0 ? "block" : "none";
-
-            // Select menyusini tozalash
-            select.innerHTML = `<option value="">Тилни танланг</option>`;
-            const allLanguages = ["English", "O'zbek", "Русский"];
-
-            // O'chirilgan tillarni qaytarish
-            allLanguages.forEach(lang => {
-                if (!selectedLanguages.includes(lang)) {
-                    const option = document.createElement("option");
-                    option.value = lang;
-                    option.textContent = lang;
-                    select.appendChild(option);
-                }
-            });
-
-            // Agar hammasi tanlangan bo'lsa, select menyusini yashirish
-            select.style.display = selectedLanguages.length === allLanguages.length ? "none" : "block";
-        }
-    });
-
-
-
-    $(document).ready(function () {
-        $('#PhoneNumber').mask('+998 (00) 000 00 00');
-    });
-
-    function showPassword() {
-        document.getElementById("PasswordHash").type = "text";
-    }
-
-    function hidePassword() {
-        document.getElementById("PasswordHash").type = "password";
-    }
-
- 
-</script>
 
 

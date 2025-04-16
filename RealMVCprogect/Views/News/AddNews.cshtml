@@ -4,6 +4,42 @@
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 
+<style>
+    .modal {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background-color: rgba(0,0,0,0.6);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 1050;
+    }
+
+    .modal-dialog {
+        width: 90%;
+        max-width: 1000px;
+        background-color: #fff;
+        border-radius: 12px;
+        padding: 30px;
+        box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+    }
+
+    .modal-content-custom {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .modal-title {
+        font-weight: bold;
+        text-align: center;
+    }
+</style>
+
+
+
 <div class="card card-solid text-center">
     <div class="card-body pb-0">
         <div class="row d-flex align-items-stretch justify-content-center">
@@ -12,7 +48,7 @@
                     <div class="card-header text-muted border-bottom-0">
                         <h4 class="m-0">Янгилик қўшиш</h4>
                     </div>
-                    <form asp-action="AddNews" asp-controller="News" method="post" enctype="multipart/form-data">
+                    <form asp-action="AddNews" asp-controller="News" method="post" enctype="multipart/form-data" onsubmit="return validateForm()">
                         <div class="card-body pt-3 d-flex flex-column justify-content-center align-items-center position-relative" style="height: 250px; border: 3px dashed #ccc;">
                             <img id="image-preview" src="" alt="Rasm" class="resizable" style="max-width: 100%; max-height: 150px; display: none;">
                         </div>
@@ -21,15 +57,30 @@
                                 <label for="short-news">Қисқача янгилик</label>
                                 <textarea id="short-news" name="title" id="title" class="form-control" rows="2"></textarea>
                             </div>
+                            <!-- Asl textarea -->
                             <div class="form-group mt-2">
-                                <label for="detailed-news">To'liq yangilik</label>
-                                <textarea id="detailed-news" name="content" id="content" class="form-control" rows="6"></textarea>
+                                <label for="detailed-news">Тўлиқ янгилик</label>
+                                <textarea id="detailed-news" name="content" class="form-control" rows="6" readonly onclick="openContentModal()"></textarea>
                             </div>
+
+                            <!-- Modal oynasi -->
+                            <div id="contentModal" class="modal" style="display:none;">
+                                <div class="modal-content">
+                                    <h5>Тўлиқ янгиликни киритинг</h5>
+                                    <textarea id="modal-content-text" class="form-control" rows="10" style="width:100%;"></textarea>
+                                    <div class="mt-3 d-flex justify-content-end">
+                                        <button class="btn btn-secondary me-2" onclick="closeContentModal()">Bekor qilish</button>
+                                        <button class="btn btn-primary" onclick="saveContent()">Saqlash</button>
+                                    </div>
+                                </div>
+                            </div>
+
                         </div>
                         <div class="card-footer d-flex justify-content-center align-items-center">
                             <label class="btn btn-primary m-1" for="image">Расм Танлаш</label>
                             <input type="file" id="image" name="files" accept="image/*" class="d-none" onchange="previewImage(event)">
                         </div>
+                        <input type="hidden" id="Status" name="Status" value="">
                         <button type="submit" class="btn btn-primary btn-block mt-3">Сақлаш</button>
                     </form>
                 </div>
@@ -37,17 +88,24 @@
         </div>
     </div>
 </div>
-
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="~/js/News.js"></script>
 <script>
-    function previewImage(event) {
-        var reader = new FileReader();
+    function openContentModal() {
+        const currentValue = document.getElementById("detailed-news").value;
+        document.getElementById("modal-content-text").value = currentValue;
+        document.getElementById("contentModal").style.display = "flex";
+    }
 
-        reader.onload = function () {
-            var output = document.getElementById('image-preview');
-            output.src = reader.result;
-            output.style.display = 'block'; // Rasmni ko'rsatish
-        }
+    function closeContentModal() {
+        document.getElementById("contentModal").style.display = "none";
+    }
 
-        reader.readAsDataURL(event.target.files[0]); // Tanlangan rasmni o'qish
+    function saveContent() {
+        const newValue = document.getElementById("modal-content-text").value;
+        document.getElementById("detailed-news").value = newValue;
+        closeContentModal();
     }
 </script>
+
+

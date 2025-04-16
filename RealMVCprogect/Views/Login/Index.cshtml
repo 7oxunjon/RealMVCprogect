@@ -33,13 +33,15 @@
                         <p class="text-center">Quyidagi ma'lumotlarni kiritish orqali tizimga kiring</p>
                         @using (Html.BeginForm("Index", "Login", FormMethod.Post))
                         {
-                            <div class="form-group">
-                                <div class="icon d-flex align-items-center justify-content-center"><span class="fa fa-user"></span></div>
-                                <input type="text" class="form-control" name="AdminName" placeholder="Username" required>
-                            </div>
-                            <div class="form-group">
+                            <div class="form-group position-relative">
                                 <div class="icon d-flex align-items-center justify-content-center"><span class="fa fa-lock"></span></div>
-                                <input type="password" class="form-control" name="AdminPassword" placeholder="*******" required>
+                                <input type="password" id="PasswordHash" class="form-control" name="PasswordHash" placeholder="*******" required>
+                                <span style="position: absolute; top: 50%; right: 15px; transform: translateY(-50%); cursor: pointer; z-index: 2;"
+                                    onmousedown="showPassword()"
+                                    onmouseup="hidePassword()"
+                                    onmouseleave="hidePassword()">
+                                    👁️
+                                </span>
                             </div>
                             <div class="form-group d-md-flex">
                                 <div class="w-100 text-md-right">
@@ -61,7 +63,15 @@
 			</div>
 		</div>
 	</section>
-   
+   <script>
+        function showPassword() {
+              document.getElementById("PasswordHash").type = "text"; // Parolni ochish
+        }
+
+        function hidePassword() {
+            document.getElementById("PasswordHash").type = "password"; // Parolni yopish
+        }
+</script>
 
 	@* <script src="~/css/login-form-19/js/jquery.min.js"></script>
 	<script src="~/css/login-form-19/js/popper.js"></script>

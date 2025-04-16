@@ -12,9 +12,13 @@ namespace RealMVCprogect.Controllers
     public class NewsController : Controller
     {
         private readonly AppDbContext _context;
+        private static int _id;
+
         public NewsController(AppDbContext context)  // <-- Context konstruktor orqali keladi
         {
             _context = context ?? throw new ArgumentNullException(nameof(context));
+            var isUser = _context.Users.FirstOrDefault(n => n.Name == CurrentUser.UserName);
+            _id = isUser.id;
         }
         NewsManager manager = new NewsManager(new EfNews());
         NewsValidation validations = new NewsValidation();
@@ -28,6 +32,7 @@ namespace RealMVCprogect.Controllers
         public async Task<IActionResult> UploadNews(int newsId, string title, string content, IFormFile[] files)
         {
             var news = _context.News.FirstOrDefault(n => n.Id == newsId);
+           
 
             if (news != null)
             {
@@ -70,8 +75,45 @@ namespace RealMVCprogect.Controllers
             return RedirectToAction("Index");
         }
 
+        [HttpGet]
+        public IActionResult DeleteNews(int Id)
+        {
+            var getdate = manager.GetById(Id);
+            return View(getdate);
+        }
 
+        [HttpPost]
 
+        public IActionResult ConfirmDeleteNews(int newsId)
+        {
+            var news = manager.GetById(newsId);
+            if (news == null)
+            {
+                TempData["Error"] = "Янгилик топилмади.";
+                return RedirectToAction("Index");
+            }
+
+            // Rasming yo‘lini aniqlash
+            if (!string.IsNullOrEmpty(news.photoNews))
+            {
+                string rootPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot");
+                string imagePath = Path.Combine(rootPath, news.photoNews.TrimStart('/').Replace("/", Path.DirectorySeparatorChar.ToString()));
+
+                // Agar fayl mavjud bo‘lsa - o‘chiramiz
+                if (System.IO.File.Exists(imagePath))
+                {
+                    System.IO.File.Delete(imagePath);
+                }
+            }
+
+            // Yangilikni bazadan o‘chirish
+            manager.NewsDeleteBl(news);
+
+            TempData["Success"] = "Янгилик ва расм муваффақиятли ўчирилди.";
+            return RedirectToAction("Index");
+           
+
+        }
 
         [HttpGet]
         public IActionResult GetByIdNew(int Id)
@@ -106,7 +148,7 @@ namespace RealMVCprogect.Controllers
             }
             news.PublishDate = DateTime.Now;
             news.PublishDate = DateTime.Now;
-            news.UserId = 1;
+            news.UserId = _id;
             manager.NewsAddBl(news);
             return RedirectToAction("Index");
             return View(news);

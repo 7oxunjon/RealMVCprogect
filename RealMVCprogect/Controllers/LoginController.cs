@@ -7,40 +7,53 @@ using System.Security.Claims;
 
 namespace RealMVCprogect.Controllers
 {
-	public class LoginController : Controller
-	{
-		[HttpGet]
-		public IActionResult Index()
-		{
-			return View();
-		}
-		[HttpGet]
-		public IActionResult Logo()
-		{
-			return View();
-		}
+    public class LoginController : Controller
+    {
+        private readonly AppDbContext _appDbContext;
+        public LoginController(AppDbContext appDb)
+        {
+            _appDbContext = appDb ?? throw new ArgumentNullException(nameof(appDb));
+        }
 
-		//	var exp = context.admins.FirstOrDefault(x=>x.AdminName == admin.AdminName && x.AdminPassword == admin.AdminPassword);
+        [HttpGet]
+        public IActionResult Index()
+        {
+            return View();
+        }
+        [HttpPost]
 
-		////	var exp = context.admins.FirstOrDefault(x => x.AdminName == admin.AdminName && x.AdminPassword == admin.AdminPassword);
+        public IActionResult Index(string Name, string PasswordHash)
+        {
+            var user = _appDbContext.Users.FirstOrDefault(u => u.PasswordHash == PasswordHash);
+            if (user != null)
+            {
+                if (user.Position == "Admin")
+                {
+                    CurrentUser.UserName = user.Name;
+                    CurrentUser.id = user.id;
+                    TempData["Success"] = "Tizimga muvaffaqiyatli kirdingiz.";
+                    return RedirectToAction("Index", "Admin"); 
+                }
+                else
+                {
+                    ViewBag.Error = "Siz Admin emassiz, tizimga kira olmaysiz.";
+                    return View();
+                }
+            }
+            else
+            {
+                ViewBag.Error = "Foydalanuvchi topilmadi yoki parol noto‘g‘ri.";
+                return View();
+            }
 
-		//		ClaimsIdentity claim = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
-		//		var properties = new AuthenticationProperties()
-		//		{
-		//			AllowRefresh = true,
-		//			IsPersistent = admin.AdminName == admin.AdminName
-		//		};
+        }
+        public async Task<IActionResult> Logout()
+        {
+            // Tizimdan chiqish (cookie ni o'chirish)
+            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
 
-		//		HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(claim));
-		//		return RedirectToAction("Index", "AdminCategoryController1");
-		//	}
-
-		//	else
-		//	{
-		//	 return RedirectToAction("Index");
-		//	}
-
-		//}
-
-	}
+            // Chiqishdan keyin qayta login sahifasiga o'tish
+            return RedirectToAction("Index", "Login");
+        }
+    }
 }

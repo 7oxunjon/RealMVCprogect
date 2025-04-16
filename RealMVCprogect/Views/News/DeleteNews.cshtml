@@ -1,0 +1,51 @@
+﻿@model EntityLayer.Concreat.News
+
+
+@{
+    ViewData["Title"] = "GetByIdNew";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="card card-solid text-center">
+    <div class="card-body pb-0">
+        <div class="row d-flex align-items-stretch justify-content-center">
+            <div class="col-12 col-sm-8 col-md-6 d-flex align-items-stretch">
+
+                <div class="card bg-light w-100 shadow-sm">
+                    <div class="card-header text-muted border-bottom-0">
+                        <h4 class="m-0">Янгиликни ўчириш</h4>
+                    </div>
+                    <form asp-action="ConfirmDeleteNews" asp-controller="News" method="post" enctype="multipart/form-data">
+                        <input type="hidden" name="newsId" value="@Model.Id" />
+
+                        <div class="card-body pt-3 d-flex flex-column justify-content-center align-items-center position-relative" style="height: 250px; border: 3px dashed #ccc;">
+                            <img id="image-preview-@Model.Id" src="@Model.photoNews" alt="Rasm" class="resizable" style="max-width: 100%; max-height: 150px;">
+                        </div>
+
+                        <div class="card-footer">
+                            <div class="form-group">
+                                <label for="short-news">Қисқача янгилик</label>
+                                <textarea id="short-news" name="title" class="form-control" rows="2">@Model.Title</textarea>
+                            </div>
+
+                            <div class="form-group mt-2">
+                                <label for="detailed-news">To'liq yangilik</label>
+                                <textarea id="detailed-news" name="content" class="form-control" rows="6">@Model.Content</textarea>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn btn-danger w-50 m-1">
+                            <i class="fas fa-trash-alt"></i> Ўчириш
+                        </button>
+                    </form>
+
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/interactjs@1.10.11/dist/interact.min.js"></script>
+
+
