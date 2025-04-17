@@ -32,7 +32,7 @@
                 <div class="row d-flex align-items-stretch">
                     @foreach (var item in Model.Where(x => x.status == 0))
                     {
-                        <div class="col-12 col-sm-6 col-md-4 d-flex align-items-stretch">
+                        <div class="col-12 col-sm-6 col-md-2 d-flex align-items-stretch">
                             <div class="card bg-light">
                                 <div class="card-header text-muted border-bottom-0 d-flex">
                                     <div class="col-md-6" pr-7>
@@ -61,10 +61,10 @@
 
                                 <div class="card-footer w-auto">
                                     <div class="text-center">
-                                        <a href="/News/GetByIdNew/@item.Id" class="btn btn-sm btn-primary w-100">
+                                        <a href="/Test_news/TestGetByIdNew/@item.Id" class="btn btn-sm btn-primary w-100">
                                             <i class="fas fa-user"></i> Таҳрирлаш
                                         </a>
-                                        <a href="/News/DeleteNews/@item.Id" class="btn btn-sm btn-danger w-100 mt-2">
+                                        <a href="/Test_news/TestDeleteNews/@item.Id" class="btn btn-sm btn-danger w-100 mt-2">
                                             <i class="fas fa-trash-alt"></i> Ўчириш
                                         </a>
 

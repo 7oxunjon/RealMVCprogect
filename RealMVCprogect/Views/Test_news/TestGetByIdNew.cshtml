@@ -1,0 +1,193 @@
+﻿@model EntityLayer.Concreat.News
+@{
+    ViewData["Title"] = "TestGetByIdNew";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<script src="https://cdn.jsdelivr.net/npm/interactjs@1.10.11/dist/interact.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="~/js/updatenews.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<div class="card card-solid text-center">
+    <div class="card-body pb-0">
+
+        <div style="position: absolute; top: 15px; right: 15px; z-index: 10;" class="bg-white p-2 rounded shadow-sm">
+            <div class="form-group d-flex align-items-center gap-2 mb-0">
+                <input class="form-check-input me-1" type="checkbox" id="autoPublishCheckbox" @(Model.ScheduledDate != null ? "checked" : "") onchange="toggleDateTimePicker()">
+                <label class="form-check-label me-2 mb-0" for="autoPublishCheckbox" style="font-size: 1.5rem; font-weight:bold">Автоматик жойлаштириш</label>
+                <input type="datetime-local" class="form-control form-control-sm" name="ScheduledDate" id="scheduledDatePicker" style="display:none; max-width: 200px;" />
+
+            </div>
+            <div id="countdown" style="font-size: 1.25rem; font-weight: bold; color: green; display: none; margin-top: 8px;">
+                Кўрсатилади: 00:00:00
+            </div>
+        </div>
+
+
+        <div class="row d-flex align-items-stretch justify-content-center">
+            <div class="col-12 col-sm-8 col-md-6 d-flex align-items-stretch">
+
+                <div class="card bg-light w-100 shadow-sm">
+                    <div class="card-header text-muted border-bottom-0">
+                        <h4 class="m-0">Саҳифани Таҳрирлаш</h4>
+                    </div>
+                    <form asp-action="TestUploadNews" asp-controller="Test_news" method="post" enctype="multipart/form-data">
+                        <input type="hidden" name="newsId" value="@Model.Id" />
+
+                        <div class="card-body pt-3 d-flex flex-column justify-content-center align-items-center position-relative" style="height: 250px; border: 3px dashed #ccc;">
+                            <img id="image-preview-@Model.Id" src="@Model.photoNews" alt="Rasm" class="resizable" style="max-width: 100%; max-height: 150px;">
+                        </div>
+
+                        <div class="card-footer">
+                            <div class="form-group">
+                                <label for="short-news">Қисқача янгилик</label>
+                                <textarea id="short-news" name="title" class="form-control" rows="2">@Model.Title</textarea>
+                            </div>
+
+                            <div class="form-group mt-2">
+                                <label for="detailed-news">To'liq yangilik</label>
+                                <textarea id="detailed-news" name="content" class="form-control" rows="6">@Model.Content</textarea>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="statusInput">Янгилик ҳолати</label>
+                            <input type="text" class="form-control" id="statusInput" name="statusText"
+                                   value="@(Model.status == 1 ? "Асосий саҳифа" : "Черновик")" readonly />
+                        </div>
+                        <input type="hidden" id="scheduledDateInput" name="ScheduledDate" value="@Model.ScheduledDate" />
+                        <input type="hidden" id="Status" name="status" value="@Model.status" />
+                        <div class="form-group mt-2">
+                            <label for="statusSelect">Ҳолатни танланг</label>
+                            <select id="statusSelect" class="form-control" onchange="updateStatus()">
+                                <option value="1" selected="@(Model.status == 1 ? "selected" : null)">Асосий саҳифа</option>
+                                <option value="0" selected="@(Model.status == 0 ? "selected" : null)">Черновик</option>
+                            </select>
+                        </div>
+                        <div class="card-footer d-flex justify-content-center align-items-center">
+                            <label class="btn btn-primary w-50 m-1" for="image-upload-@Model.Id">Расм Танлаш</label>
+                            <input type="file" id="image-upload-@Model.Id" name="files" accept="image/*" class="d-none" multiple onchange="previewImage(event, '@Model.Id')">
+                        </div>
+                        <button type="submit" class="btn btn-success w-50 m-1">Сақлаш</button>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function updateStatus() {
+        const select = document.getElementById("statusSelect");
+        const input = document.getElementById("statusInput");
+        const hidden = document.getElementById("Status");
+
+        if (select.value === "1") {
+            input.value = "Асосий саҳифа";
+            hidden.value = "1";
+        } else {
+            input.value = "Черновик";
+            hidden.value = "0";
+        }
+    }
+
+    function toggleDateTimePicker() {
+        const checkbox = document.getElementById('autoPublishCheckbox');
+        const datePicker = document.getElementById('scheduledDatePicker');
+        const scheduledDateInput = document.getElementById('scheduledDateInput');
+        const countdown = document.getElementById('countdown');
+
+        // Checkboxni tekshirib, datetime pickerni ko'rsatish yoki yashirish
+        if (checkbox.checked) {
+            datePicker.style.display = 'block';
+
+            // Agar datetime pickerda sana tanlangan bo'lsa, hidden inputga qiymatni yozish
+            const scheduledDate = datePicker.value; // "YYYY-MM-DDTHH:mm" formatida
+            if (scheduledDate) {
+                scheduledDateInput.value = scheduledDate; // To'g'ri formatda qiymatni saqlash
+                localStorage.setItem('scheduledDate', scheduledDate); // Tanlangan sana va vaqtni localStorage'ga saqlash
+                startCountdown(scheduledDate);  // Tanlangan sana va vaqt bo'yicha countdownni boshlash
+            }
+        } else {
+            datePicker.style.display = 'none';
+            scheduledDateInput.value = '';  // Agar checkbox o'chirilgan bo'lsa, hidden inputni tozalash
+            countdown.style.display = 'none';  // Countdownni yashirish
+            localStorage.removeItem('scheduledDate'); // Tanlangan sana va vaqtni localStorage'dan o'chirish
+        }
+    }
+
+    // Vaqtni va sana o'zgarganda, hidden inputga saqlash
+    document.getElementById('scheduledDatePicker').addEventListener('change', function () {
+        const scheduledDate = this.value; // Soat va sana
+        const scheduledDateInput = document.getElementById('scheduledDateInput');
+        const countdown = document.getElementById('countdown');
+
+        if (scheduledDate) {
+            scheduledDateInput.value = scheduledDate; // To'g'ri formatda saqlash
+            localStorage.setItem('scheduledDate', scheduledDate); // Tanlangan sana va vaqtni localStorage'ga saqlash
+            startCountdown(scheduledDate);  // Tanlangan sana va vaqtni countdownga qo'shish
+        }
+    });
+
+    // Formani yuborishda, datetime pickerda tanlangan sanani formaga qo'shish
+    document.querySelector('form').addEventListener('submit', function (e) {
+        const scheduledDate = document.getElementById('scheduledDatePicker').value;
+        const scheduledDateInput = document.getElementById('scheduledDateInput');
+
+        if (scheduledDate) {
+            scheduledDateInput.value = scheduledDate; // Formaga sana va vaqtni qo'shish
+        }
+    });
+
+    // Countdownni boshlash vaqti
+    function startCountdown(targetDate) {
+        const countdownElement = document.getElementById('countdown');
+        const endTime = new Date(targetDate).getTime();  // Tanlangan vaqtni olish
+        countdownElement.style.display = 'block';  // Countdownni ko'rsatish
+
+        const interval = setInterval(function () {
+            const currentTime = new Date().getTime();
+            const remainingTime = endTime - currentTime; // Qolgan vaqtni hisoblash
+
+            if (remainingTime <= 0) {
+                clearInterval(interval);
+                countdownElement.innerHTML = "Вақт тугади!";
+                localStorage.removeItem('scheduledDate'); // Vaqt tugagach, sana va vaqtni o'chirish
+            } else {
+                const hours = Math.floor((remainingTime % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((remainingTime % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((remainingTime % (1000 * 60)) / 1000);
+                countdownElement.innerHTML = `Кўрсатилади: ${padTime(hours)}:${padTime(minutes)}:${padTime(seconds)}`;
+            }
+        }, 1000);
+    }
+
+    // Vaqtni to'g'ri formatda ko'rsatish uchun funktsiya
+    function padTime(time) {
+        return time < 10 ? "0" + time : time;
+    }
+
+    // Sahifa yuklanganda checkbox va datetime pickerni sozlash
+    window.onload = function () {
+        // LocalStorage'dan tanlangan sana va vaqtni olish
+        const savedDate = localStorage.getItem('scheduledDate');
+        const checkbox = document.getElementById('autoPublishCheckbox');
+        const datePicker = document.getElementById('scheduledDatePicker');
+        const scheduledDateInput = document.getElementById('scheduledDateInput');
+        const countdown = document.getElementById('countdown');
+
+        if (savedDate) {
+            checkbox.checked = true;  // Checkboxni tanlash
+            datePicker.value = savedDate;  // Tanlangan sana va vaqtni datetime pickerga qo'yish
+            scheduledDateInput.value = savedDate;  // Tanlangan sana va vaqtni hidden inputga qo'yish
+            countdown.style.display = 'block';  // Countdownni ko'rsatish
+            startCountdown(savedDate);  // Countdownni boshlash
+        } else {
+            countdown.style.display = 'none';  // Countdownni yashirish
+        }
+
+        toggleDateTimePicker(); // Sahifa yuklanganda checkbox holatiga qarab datetime pickerni sozlash
+    };
+
+</script>

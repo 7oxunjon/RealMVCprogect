@@ -17,6 +17,7 @@ namespace EntityLayer.Concreat
         public string? photoNews { get; set; } 
         public int status { get; set; }
         public Users Users { get; set; }
+        public DateTime? ScheduledDate { get; set; }
         public virtual ICollection<Photos> Images { get; set; } = new List<Photos>();
     }
 }

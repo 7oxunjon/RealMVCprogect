@@ -1,4 +1,5 @@
-﻿function previewImage(event) {
+﻿
+function previewImage(event) {
     var reader = new FileReader();
 
     reader.onload = function () {
@@ -43,25 +44,51 @@ function validateForm() {
         return false;
     }
 
-    // Agar barcha maydonlar to‘g‘ri to‘ldirilgan bo‘lsa — Swal orqali statusni tanlaymiz
-    Swal.fire({
-        title: 'Status tanlang',
-        text: "Yangilikni qaysi holatda saqlamoqchisiz?",
+
+    Swal.fire({                                            // bu qisimda yangiliklar yaratilgandandan keyin  Asosiy qisimga o`tib ketishi va yoki chernovekga o`tish qismini sozlab beradi`
+        title: 'Статус танланг',
+        text: "Янгиликни қайси ҳолатда сақламоқчисиз?",
         icon: 'question',
         showCancelButton: true,
         showDenyButton: true,
-        confirmButtonText: 'Prod',
+        confirmButtonText: 'Асосий',
         denyButtonText: 'Черновик',
-        cancelButtonText: 'Bekor qilish'
+        cancelButtonText: 'Бекор қилиш'
     }).then((result) => {
-        if (result.isConfirmed) {
+        const form = document.querySelector("form");
+        if (result.isConfirmed) {                                       //Asasiy qisimga o`tish tugmasi bosilganda(Prod) /News/Index sahifasiga yo`naltiradi`
             document.getElementById("Status").value = 1;
-            document.querySelector("form").submit();
-        } else if (result.isDenied) {
+
+            // AJAX orqali yuborib, so'ngra yo'naltirish
+            const formData = new FormData(form);
+            fetch(form.action, {
+                method: "POST",
+                body: formData
+            })
+                .then(response => {
+                    if (response.ok) {
+                        window.location.href = '/News/Index';
+                    } else {
+                        Swal.fire("Хатолик!", "Маълумотларни сақлаб бўлмади", "error");
+                    }
+                });
+        } else if (result.isDenied) {                                       //Chernover qisimga o`tish tugmasi bosilganida  /Test_news/Index  sahifasiga yo`naltiradi
             document.getElementById("Status").value = 0;
-            document.querySelector("form").submit();
+
+            const formData = new FormData(form);
+            fetch(form.action, {
+                method: "POST",
+                body: formData
+            })
+                .then(response => {
+                    if (response.ok) {
+                        window.location.href = '/Test_news/Index';
+                    } else {
+                        Swal.fire("Хатолик!", "Маълумотларни сақлаб бўлмади", "error");
+                    }
+                });
         }
     });
+    return false;
 
-    return false; // Formani avtomatik yuborishni to‘xtatamiz
 }

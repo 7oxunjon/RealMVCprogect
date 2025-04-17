@@ -29,7 +29,7 @@ namespace RealMVCprogect.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> UploadNews(int newsId, string title, string content, IFormFile[] files)
+        public async Task<IActionResult> UploadNews(int newsId, string title, string content, int status, IFormFile[] files)
         {
             var news = _context.News.FirstOrDefault(n => n.Id == newsId);
            
@@ -40,7 +40,7 @@ namespace RealMVCprogect.Controllers
                 news.Title = title;
                 news.Content = content;
                 news.PublishDate = DateTime.Now;
-
+                news.status = status;
                 if (files != null && files.Length > 0)
                 {
                     // Eski rasmni o'chirish

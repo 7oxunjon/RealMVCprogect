@@ -110,7 +110,7 @@
             <a href="/Test_news/Index/" class="nav-link">
               <i class="nav-icon fas fa-table"></i>
               <p>
-                 Maqolalar
+                                    Черновек
               </p>
             </a>
           </li>
@@ -123,7 +123,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="pages/gallery.html" class="nav-link">
+            <a href="#" class="nav-link">
               <i class="nav-icon far fa-image"></i>
               <p>
                  Gallery
@@ -193,13 +193,6 @@
 
 </html>
 <script>
-    document.getElementById("adminImage").addEventListener("change", function (event) {
-        let reader = new FileReader();
-        reader.onload = function () {
-            document.getElementById("Imagess").src = reader.result;
-        }
-        reader.readAsDataURL(event.target.files[0]);
-    });
 
     function logout() {
     // JavaScript yordamida oynani yopish

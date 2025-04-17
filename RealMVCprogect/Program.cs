@@ -1,4 +1,5 @@
 using DataAsseccLayer.Concreat;
+using DataAsseccLayer.Service;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Identity;
 
@@ -10,7 +11,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 StaartUp(builder.Services, builder.Configuration);
 builder.Services.AddDbContext<AppDbContext>();
-
+builder.Services.AddHostedService<NewsSchedulerService>();
 builder.Services.AddDistributedMemoryCache();
 builder.Services.AddSession(options =>
 {
